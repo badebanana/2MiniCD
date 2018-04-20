@@ -1,6 +1,7 @@
 """
  Implements a simple socket server
 
+Pequena mudança só para testar o git
 """
 
 import socket

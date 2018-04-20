@@ -51,14 +51,36 @@ print('Listening on port %s ...' % SERVER_PORT)
 # Connection list
 connections = []
 
+clientList = []
+
+#Função que nos permite saber se um elementos existe na lista
+def exists(name):
+    for i in clientList:
+        if name.lower() == i.lower():
+            return True;
+
+    return False;
+
+def acceptUser():
+    name = client_connection.recv(1024).decode().strip(" ")
+    while True:
+        if exists(name):
+            client_connection.send("Muda isso".encode())
+            name = client_connection.recv(1024).decode().strip(" ")
+        else:
+            clientList.append(name)
+            msg = 'You are now connected, %s!' % name
+            print('Actual Clients Room:',clientList)
+            client_connection.sendall(msg.encode())
+            break
+    return name
+
 while True:
     # Wait for client connections
     client_connection, client_address = server_socket.accept()
 
     # Accept username
-    name = client_connection.recv(1024).decode()
-    msg = 'You are now connected, %s!' % name
-    client_connection.sendall(msg.encode())
+    name = acceptUser()
 
     # Welcome user
     msg = 'User has entered the server: %s' % name

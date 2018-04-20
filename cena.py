@@ -34,7 +34,7 @@ def janelaGeral():
     btn.place(x=370, y=405)
     janelaGeral.mainloop()
 
-#janelaGeral()
+janelaGeral()
 
 def entrar():
     janelaGeral()
@@ -57,4 +57,5 @@ class Interface:
 
     def guardarNome(self):
         print(self.textEntry.get())
+
 

@@ -1,12 +1,11 @@
 """
  Implements a simple socket server
 
-Pequena mudança só para testar o git
 """
 
 import socket
 import threading
-import Room
+
 
 def handle_client(name, client_connection):
     """Handles a client connection."""
@@ -51,22 +50,6 @@ print('Listening on port %s ...' % SERVER_PORT)
 
 # Connection list
 connections = []
-clients = ['joao']
-geralRoom = Room('SalaGeral')
-
-def exists(name):
-    for client in clients:
-        if client != name:
-            clients.append(name)
-            return False
-        else:
-            return True
-
-def messageExists(exists):
-    if exists:
-        return 'The user %s already exists' % name
-    else:
-        return 'You are now connected, %s!' % name
 
 while True:
     # Wait for client connections
@@ -74,11 +57,8 @@ while True:
 
     # Accept username
     name = client_connection.recv(1024).decode()
-    bool = exists(name)
-    print(clients)
-    msg = messageExists(bool)
+    msg = 'You are now connected, %s!' % name
     client_connection.sendall(msg.encode())
-
 
     # Welcome user
     msg = 'User has entered the server: %s' % name

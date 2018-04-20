@@ -6,7 +6,6 @@
 import socket
 import threading
 
-
 def handle_messages(client_socket):
     """Handles all incoming messages."""
 
@@ -18,22 +17,19 @@ def handle_messages(client_socket):
     # Close socket
     client_socket.close()
 
+#Função que pergunta qual o Username do utilizador
 def requestUsername():
     print('$ Username?')
     name = input('> ')
     return name
 
-def nameExists(res):
-    if res == "Muda isso":
-        return True
-    return False
-
+#Função para registar o Utilizador
 def registerUsername(name):
     client_socket.sendall(name.encode())
     res = client_socket.recv(1024).decode()
 
     while True:
-        if res == "Muda isso":
+        if res == "True":
             print("O nome " , name, " já está a ser usado. Tente outro nome.")
             name = requestUsername()
             client_socket.sendall(name.encode())

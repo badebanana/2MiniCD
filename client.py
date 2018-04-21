@@ -39,6 +39,16 @@ def registerUsername(name):
 
     print('$', res)
 
+def menu():
+    print('\n1-Criar nova sala')
+    print('2-Inscrever-se numa sala')
+    option = input('> ')
+    if option == '1':
+        print('Nome da sala:')
+        nameRoom = input('> ')
+        client_socket.sendall(nameRoom.encode())
+
+
 # Define socket host and port
 SERVER_HOST = '127.0.0.1'
 SERVER_PORT = 8000
@@ -54,6 +64,9 @@ client_socket.connect((SERVER_HOST, SERVER_PORT))
 
 # Register username
 registerUsername(name)
+
+#Menu
+menu()
 
 # Start listening to messages
 is_running = True

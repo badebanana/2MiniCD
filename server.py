@@ -60,6 +60,12 @@ def acceptUser():
             break
     return name
 
+def receiveOption(option):
+    newRoom = Room(option,name)
+    return newRoom
+
+
+
 # Define socket host and port
 SERVER_HOST = '0.0.0.0'
 SERVER_PORT = 8000
@@ -73,11 +79,16 @@ print('Listening on port %s ...' % SERVER_PORT)
 
 # Connection list
 connections = []
+
 # Client list
 clientList = []
-#GeralRoom
-r = Room('SALA GERAL')
 
+#RoomList
+roomList = []
+
+#GeralRoom
+r = Room('SALA GERAL',"")
+roomList.append(r)
 
 while True:
     # Wait for client connections
@@ -87,6 +98,12 @@ while True:
     name = acceptUser()
     r.addUser(name)
     r.__str__()
+
+    #Menu
+    option = client_connection.recv(1024).decode().strip(" ")
+    newRoom = receiveOption(option)
+    newRoom.__str__()
+    roomList.append(newRoom)
 
     # Welcome user
     msg = 'User has entered the server: %s' % name

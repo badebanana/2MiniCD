@@ -1,5 +1,31 @@
 from tkinter import*
 
+username = 'joao'
+
+def Login():
+    global nameEL
+    global rootA
+
+    rootA = Tk() # This now makes a new window.
+    rootA.title('Chat CD - Login') # This makes the window title 'login'
+    rootA.geometry('260x100')
+
+    intruction = Label(rootA, text='Please Login\n') # More labels to tell us what they do
+    intruction.grid(sticky=E) # Blahdy Blah
+
+    nameL = Label(rootA, text='Username: ') # More labels
+    nameL.grid(row=1, sticky=W)
+
+    nameEL = Entry(rootA) # The entry input
+    nameEL.grid(row=1, column=1)
+
+    print(nameEL.get())
+
+    loginB = Button(rootA, text='Login', command=CheckLogin) # This makes the login button, which will go to the CheckLogin def.
+    loginB.grid(columnspan=2, sticky=W)
+
+    rootA.mainloop()
+
 def menu(janelaGeral):
     def quitApp():
         janelaGeral.quit()
@@ -34,28 +60,20 @@ def janelaGeral():
     btn.place(x=370, y=405)
     janelaGeral.mainloop()
 
-janelaGeral()
+def CheckLogin():
+    if nameEL.get() == username: # Checks to see if you entered the correct data.
+        r = janelaGeral() # Opens new window
+        r.mainloop()
 
-def entrar():
-    janelaGeral()
+    else:
+        r = Tk()
+        r.title('D:')
+        r.geometry('150x50')
+        rlbl = Label(r, text='\n[!] Invalid Login')
+        rlbl.pack()
+        r.mainloop()
 
-class Interface:
-    def __init__(self, janelaUser):
-        self.janelaUser = janelaUser
-        janelaUser.title("Chat de CD")
-        janelaUser.geometry('400x200')
 
-        self.label = Label(janelaUser, text="CHAT CD")
-        self.label.config(font=("verdana",20,"bold"))
-        self.label.place(x=135,y=10)
-        self.labelUser = Label(janelaUser, text="Nome de Utilizador:")
-        self.labelUser.place(x=45, y=85)
-        self.textEntry = Entry(janelaUser, width=30)
-        self.textEntry.place(x=160, y=85)
-        self.btn = Button(janelaUser, text="Entrar", command=entrar)
-        self.btn.place(x=175, y=120)
-
-    def guardarNome(self):
-        print(self.textEntry.get())
+Login()
 
 

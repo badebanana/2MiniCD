@@ -5,7 +5,23 @@
 
 import socket
 import threading
+from os import close
+
 from Room import*
+
+#Função que nos permite remover elementos da lista de clientes
+def removeUser(name):
+    clientList.remove(name)
+    r.removeClient(name)
+
+def exitRecived(msg, name):
+    if msg == "exit":
+        msgToClient = 'Goodbye %s!' % name;
+        client_connection.sendall(msgToClient.encode())
+        removeUser(name)
+        return True
+    else:
+        return False
 
 def handle_client(name, client_connection):
     """Handles a client connection."""
@@ -16,9 +32,7 @@ def handle_client(name, client_connection):
         print('Received:', msg)
 
         # Check for exit
-        if msg == 'exit':
-            msg = 'Goodbye %s!' % name
-            client_connection.sendall(msg.encode())
+        if exitRecived(msg, name):
             break
 
         # Broadcast message to clients
@@ -28,6 +42,7 @@ def handle_client(name, client_connection):
 
     # Close client connection
     print('Client disconnected...')
+
     client_connection.close()
     connections.remove(client_connection)
 
@@ -77,7 +92,6 @@ connections = []
 clientList = []
 #GeralRoom
 r = Room('SALA GERAL')
-
 
 while True:
     # Wait for client connections

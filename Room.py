@@ -14,3 +14,6 @@ class Room:
     def __str__(self):
         print('#',self.name)
         print(self.clients)
+
+    def removeClient(self, name):
+        self.clients.remove(name)

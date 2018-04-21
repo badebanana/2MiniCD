@@ -116,6 +116,7 @@ while True:
     r.addUser(name)
     r.__str__()
 
+
     #Menu
     option = client_connection.recv(1024).decode().strip(" ")
     newRoom = receiveOption(option)

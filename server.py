@@ -79,14 +79,15 @@ def acceptUser():
 def receiveOption(option, name):
     if option[0] == '1':
         newRoom = Room(option[1:],name)
+        clientList.remove(name)
         return newRoom
     elif option[0] == '2':
         nameRoom = option[1:]
-        print(nameRoom)
         for i in roomList:
             room = i
             if room.roomName() == nameRoom:
                 room.addUser(name)
+                clientList.remove(name)
                 room.__str__()
                 break
 
@@ -123,14 +124,11 @@ while True:
     # Accept username
     name = acceptUser()
     r.addUser(name)
-    r.__str__()
 
     #Menu
     option = client_connection.recv(1024).decode().strip(" ")
     newRoom = receiveOption(option,name)
     roomList.append(newRoom)
-    newRoom.__str__()
-    print('---------------------------')
 
     # Welcome user
     msg = 'User has entered the server: %s' % name

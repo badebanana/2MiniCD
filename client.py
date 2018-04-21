@@ -23,6 +23,12 @@ def requestUsername():
     name = input('> ')
     return name
 
+#Função que permite saber se é exit
+def isExit(msg):
+    if msg == 'exit':
+        return True
+    return False
+
 #Função para registar o Utilizador
 def registerUsername(name):
     client_socket.sendall(name.encode())
@@ -42,13 +48,13 @@ def registerUsername(name):
 def menu():
     print('\n1-Criar nova sala')
     print('2-Inscrever-se numa sala')
+    print('3 - Sair')
     option = input('> ')
     if option == '1' or option == '2':
         print('Nome da sala:')
         nameRoom = option
         nameRoom += input('> ')
         client_socket.sendall(nameRoom.encode())
-
 
 # Define socket host and port
 SERVER_HOST = '127.0.0.1'
@@ -80,7 +86,7 @@ while True:
     client_socket.sendall(msg.encode())
 
     # Check for exit
-    if msg == 'exit':
+    if isExit(msg):
         break
 
 is_running = False

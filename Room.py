@@ -18,5 +18,8 @@ class Room:
         print(self.clients)
         print('Moderador:',self.moderador)
 
+    def roomName(self):
+        return self.name
+
     def removeClient(self, name):
         self.clients.remove(name)

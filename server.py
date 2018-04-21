@@ -5,9 +5,8 @@
 
 import socket
 import threading
-from os import close
 
-from Room import*
+from Room import *
 
 #Função que nos permite remover elementos da lista de clientes
 def removeUser(name):
@@ -77,10 +76,19 @@ def acceptUser():
             break
     return name
 
-def receiveOption(option):
-    newRoom = Room(option,name)
-    return newRoom
-
+def receiveOption(option, name):
+    if option[0] == '1':
+        newRoom = Room(option[1:],name)
+        return newRoom
+    elif option[0] == '2':
+        nameRoom = option[1:]
+        print(nameRoom)
+        for i in roomList:
+            room = i
+            if room.roomName() == nameRoom:
+                room.addUser(name)
+                room.__str__()
+                break
 
 
 # Define socket host and port
@@ -107,6 +115,7 @@ roomList = []
 r = Room('SALA GERAL',"")
 roomList.append(r)
 
+
 while True:
     # Wait for client connections
     client_connection, client_address = server_socket.accept()
@@ -116,12 +125,12 @@ while True:
     r.addUser(name)
     r.__str__()
 
-
     #Menu
     option = client_connection.recv(1024).decode().strip(" ")
-    newRoom = receiveOption(option)
-    newRoom.__str__()
+    newRoom = receiveOption(option,name)
     roomList.append(newRoom)
+    newRoom.__str__()
+    print('---------------------------')
 
     # Welcome user
     msg = 'User has entered the server: %s' % name

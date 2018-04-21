@@ -43,9 +43,10 @@ def menu():
     print('\n1-Criar nova sala')
     print('2-Inscrever-se numa sala')
     option = input('> ')
-    if option == '1':
+    if option == '1' or option == '2':
         print('Nome da sala:')
-        nameRoom = input('> ')
+        nameRoom = option
+        nameRoom += input('> ')
         client_socket.sendall(nameRoom.encode())
 
 

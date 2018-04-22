@@ -46,8 +46,8 @@ def registerUsername(name):
     print('$', res)
 
 def menu():
-    print('\n1-Criar nova sala')
-    print('2-Inscrever-se numa sala')
+    print('\n1 - Criar nova sala')
+    print('2 - Inscrever-se numa sala')
     print('3 - Sair')
     option = input('> ')
     if option == '1' or option == '2':
